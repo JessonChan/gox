@@ -2325,6 +2325,11 @@ func (p *CodeBuilder) Get(idx int) *Element {
 	return p.stk.Get(idx)
 }
 
+// Len func
+func (p *CodeBuilder) Len() int {
+	return p.stk.Len()
+}
+
 // ----------------------------------------------------------------------------
 
 type InternalStack = internal.Stack

@@ -1219,8 +1219,10 @@ var (
 func initBuiltinTIs(pkg PkgImporter) {
 	strconv := pkg.Import("strconv")
 	strings := pkg.Import("strings")
+	wep := pkg.Import("github.com/JessonChan/wep")
 	btiMap = new(typeutil.Map)
 	btoLen := types.Universe.Lookup("len")
+	btoAppend := types.Universe.Lookup("append")
 	tis := []*builtinTI{
 		{
 			typ: types.Typ[types.Float64],
@@ -1258,6 +1260,7 @@ func initBuiltinTIs(pkg PkgImporter) {
 				{"Fields", strings.Ref("Fields"), nil},
 				{"Split", strings.Ref("Split"), nil},
 				{"Contains", strings.Ref("Contains"), nil},
+				{"FieldsFunc", strings.Ref("FieldsFunc"), nil},
 			},
 		},
 		{
@@ -1265,12 +1268,17 @@ func initBuiltinTIs(pkg PkgImporter) {
 			methods: []*builtinMethod{
 				{"Len", btoLen, nil},
 				{"Join", strings.Ref("Join"), nil},
+				{"Append", btoAppend, nil},
+				{"Each", wep.Ref("Each"), nil},
 			},
 		},
 		{
 			typ: tySlice,
 			methods: []*builtinMethod{
 				{"Len", btoLen, nil},
+				{"Join", wep.Ref("Join"), nil},
+				{"Append", btoAppend, nil},
+				{"Each", wep.Ref("Each"), nil},
 			},
 		},
 		{
