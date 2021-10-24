@@ -1223,6 +1223,7 @@ func initBuiltinTIs(pkg PkgImporter) {
 	btiMap = new(typeutil.Map)
 	btoLen := types.Universe.Lookup("len")
 	btoAppend := types.Universe.Lookup("append")
+	btoDelete := types.Universe.Lookup("delete")
 	tis := []*builtinTI{
 		{
 			typ: types.Typ[types.Float64],
@@ -1261,6 +1262,7 @@ func initBuiltinTIs(pkg PkgImporter) {
 				{"Split", strings.Ref("Split"), nil},
 				{"Contains", strings.Ref("Contains"), nil},
 				{"FieldsFunc", strings.Ref("FieldsFunc"), nil},
+				{"SubString", wep.Ref("SubString"), nil},
 			},
 		},
 		{
@@ -1285,6 +1287,8 @@ func initBuiltinTIs(pkg PkgImporter) {
 			typ: tyMap,
 			methods: []*builtinMethod{
 				{"Len", btoLen, nil},
+				{"Delete", btoDelete, nil},
+				{"Each", wep.Ref("EachMap"), nil},
 			},
 		},
 		{
